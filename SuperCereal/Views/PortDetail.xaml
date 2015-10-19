@@ -1,0 +1,177 @@
+﻿<UserControl x:Class="SuperCereal.Views.PortDetail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:SuperCereal.ViewModels"
+             d:DataContext="{d:DesignInstance vm:PortDetailVM, IsDesignTimeCreatable=True}"
+             d:DesignHeight="300"
+             d:DesignWidth="500"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SuperCereal;component/Resources/Converters.xaml" />
+                <ResourceDictionary Source="/SuperCereal;component/Resources/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24" />
+            <RowDefinition Height="18" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="5" />
+
+            <RowDefinition Height="18" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="5" />
+
+            <RowDefinition Height="18" />
+            <RowDefinition Height="24" />
+
+            <RowDefinition Height="10" />
+
+            <RowDefinition Height="24" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Grid.ColumnSpan="3"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+            <Image Height="16"
+                   Source="/SuperCereal;component/Content/offline2.png"
+                   Visibility="{Binding Port.IsConnected, Converter={StaticResource VisibilityNotConverter}}" />
+            <Image Height="16"
+                   Source="/SuperCereal;component/Content/online.png"
+                   Visibility="{Binding Port.IsConnected, Converter={StaticResource VisibilityConverter}}" />
+
+            <TextBlock Margin="5 0"
+                       Text="{Binding Port.PortName, StringFormat='\{0\} is disconnected.'}"
+                       Visibility="{Binding Port.IsConnected, Converter={StaticResource VisibilityNotConverter}}" />
+            <TextBlock Margin="5 0"
+                       Text="{Binding Port.PortName, StringFormat='\{0\} is connected.'}"
+                       Visibility="{Binding Port.IsConnected, Converter={StaticResource VisibilityConverter}}" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="1"
+                   Grid.Column="0"
+                   Style="{StaticResource Label}"
+                   Text="Port:" />
+        <ComboBox Grid.Row="2"
+                  Grid.Column="0"
+                  IsEnabled="{Binding Port.IsConnected, Converter={StaticResource NotConverter}}"
+                  ItemsSource="{Binding PortNames}"
+                  SelectedItem="{Binding Port.PortName, Mode=TwoWay}" />
+
+        <TextBlock Grid.Row="1"
+                   Grid.Column="2"
+                   Style="{StaticResource Label}"
+                   Text="Baud rate:" />
+        <ComboBox Grid.Row="2"
+                  Grid.Column="2"
+                  IsEnabled="{Binding Port.IsConnected, Converter={StaticResource NotConverter}}"
+                  ItemsSource="{Binding BaudRates}"
+                  SelectedItem="{Binding Port.BaudRate, Mode=TwoWay}" />
+
+        <TextBlock Grid.Row="4"
+                   Grid.Column="0"
+                   Style="{StaticResource Label}"
+                   Text="Byte Length:" />
+        <ComboBox Grid.Row="5"
+                  Grid.Column="0"
+                  IsEnabled="{Binding Port.IsConnected, Converter={StaticResource NotConverter}}"
+                  ItemsSource="{Binding ByteLengths}"
+                  SelectedItem="{Binding Port.DataBits, Mode=TwoWay}" />
+
+        <TextBlock Grid.Row="4"
+                   Grid.Column="2"
+                   Style="{StaticResource Label}"
+                   Text="Stop bits:" />
+        <ComboBox Grid.Row="5"
+                  Grid.Column="2"
+                  IsEnabled="{Binding Port.IsConnected, Converter={StaticResource NotConverter}}"
+                  ItemsSource="{Binding StopBitss}"
+                  SelectedItem="{Binding Port.StopBits, Mode=TwoWay}" />
+
+
+        <TextBlock Grid.Row="7"
+                   Grid.Column="0"
+                   Style="{StaticResource Label}"
+                   Text="Handshake:" />
+        <ComboBox Grid.Row="8"
+                  Grid.Column="0"
+                  IsEnabled="{Binding Port.IsConnected, Converter={StaticResource NotConverter}}"
+                  ItemsSource="{Binding Handshakes}"
+                  SelectedItem="{Binding Port.Handshake, Mode=TwoWay}" />
+
+        <TextBlock Grid.Row="7"
+                   Grid.Column="2"
+                   Style="{StaticResource Label}"
+                   Text="Encoding:" />
+        <ComboBox Grid.Row="8"
+                  Grid.Column="2"
+                  DisplayMemberPath="EncodingName"
+                  IsEnabled="{Binding Port.IsConnected, Converter={StaticResource NotConverter}}"
+                  ItemsSource="{Binding Encodings}"
+                  SelectedItem="{Binding Port.Encoding, Mode=TwoWay}" />
+
+        <Grid Grid.Row="10"
+              Grid.Column="0"
+              Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="1" IsEnabled="{Binding Port.IsConnected, Converter={StaticResource NotConverter}}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="/SuperCereal;component/Content/connect.png" />
+                    <TextBlock Grid.Column="2" Text="Connect" />
+                </Grid>
+            </Button>
+            <Button Grid.Column="3" IsEnabled="{Binding Port.IsConnected}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="/SuperCereal;component/Content/disconnect.png" />
+                    <TextBlock Grid.Column="2" Text="Disconnect" />
+                </Grid>
+            </Button>
+
+            <Button Grid.Column="5" IsEnabled="{Binding Port.IsConnected}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="/SuperCereal;component/Content/icon-clear-formatting.png" />
+                    <TextBlock Grid.Column="2" Text="Clear" />
+                </Grid>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

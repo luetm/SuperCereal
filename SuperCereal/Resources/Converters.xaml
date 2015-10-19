@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:common="clr-namespace:Common.Converters;assembly=Common">
+    <common:AgeConverter x:Key="AgeConverter" />
+    <common:DateFormatConverter x:Key="DateFormatConverter" />
+    <common:DateTimeConverter x:Key="DateTimeConverter" />
+    <common:IsNotNullConverter x:Key="IsNotNullConverter" />
+    <common:IsNullConverter x:Key="IsNullConverter" />
+    <common:NotConverter x:Key="NotConverter" />
+    <common:SubstractMarginConverter x:Key="SubstractMarginConverter" />
+    <common:TimespanToDatetimeConverter x:Key="TimespanToDatetimeConverter" />
+    <common:VisibilityConverter x:Key="VisibilityConverter" />
+    <common:VisibilityNotConverter x:Key="VisibilityNotConverter" />
+    <common:VisibleIfNotNullConverter x:Key="VisibleIfNotNullConverter" />
+    <common:VisibleIfNotNullOrWhitespaceConverter x:Key="VisibleIfNotNullOrWhitespaceConverter" />
+    <common:VisibleIfNullConverter x:Key="VisibleIfNullConverter" />
+    <common:VisibleIfNullOrWhitespace x:Key="VisibleIfNullOrWhitespace" />
+</ResourceDictionary>
