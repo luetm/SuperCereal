@@ -37,8 +37,9 @@ namespace SuperCereal.ViewModels
         {
             if (_viewerType == ViewerType.Hex)
             {
-                var text = Data?.Replace("\n", " ") + BitConverter.ToString(encoding.GetBytes(data)).Replace("-", " ");
-                text = Regex.Replace(text, "(.{" + 24 + "})", "$1\n");
+                var text = Data?.Replace(" ", "").Replace("\n", "").Replace("\r", "") + BitConverter.ToString(encoding.GetBytes(data)).Replace("-", "");
+                text = Regex.Replace(text, "(.{2})", "$1 ");
+                text = Regex.Replace(text, "(.{" + 48 + "})", "$1\n");
 
                 Data = text;
             }

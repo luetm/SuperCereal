@@ -4,6 +4,8 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Async;
+using GalaSoft.MvvmLight.Command;
 using PropertyChanged;
 using SuperCereal.Model;
 
@@ -13,6 +15,11 @@ namespace SuperCereal.ViewModels
     public class PortDetailVM
     {
         private MasterVM _masterVM;
+        private readonly SerialPort _serialPort;
+
+        public RelayCommand ConnectCommand { get; set; }
+        public RelayCommand DisconnectCommand { get; set; }
+        public RelayCommand ClearCommand { get; set; }
 
         public Port Port { get; set; }
 
@@ -34,9 +41,14 @@ namespace SuperCereal.ViewModels
         {
             MakeCollections();
             _masterVM = masterVM;
+            _serialPort = serialPort;
 
             Port = port;
             Port.IsConnected = serialPort.IsOpen;
+
+            ConnectCommand = new RelayCommand(Connect);
+            DisconnectCommand = new RelayCommand(Disconnect);
+            ClearCommand = new RelayCommand(Clear);
         }
 
         private void MakeCollections()
@@ -54,6 +66,29 @@ namespace SuperCereal.ViewModels
             PortNames = SerialPort.GetPortNames();
             StopBitss = new[] { StopBits.None, StopBits.One, StopBits.OnePointFive, StopBits.Two };
             Encodings = new[] { Encoding.ASCII, Encoding.Default, Encoding.UTF8, Encoding.UTF7, Encoding.UTF32, Encoding.BigEndianUnicode, Encoding.Unicode };
+        }
+
+        private void Connect()
+        {
+            if (!_serialPort.IsOpen)
+            {
+                _serialPort.Open();
+                Port.IsConnected = true;
+            }
+        }
+
+        private void Disconnect()
+        {
+            if (_serialPort.IsOpen)
+            {
+                _serialPort.Close();
+                Port.IsConnected = false;
+            }
+        }
+
+        private void Clear()
+        {
+            _masterVM.Clear();
         }
 
         private void GenerateTestData()

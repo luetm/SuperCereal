@@ -60,7 +60,6 @@ namespace SuperCereal.ViewModels
                     DataBits = port.DataBits,
                     StopBits = port.StopBits,
                 };
-                serialPort.Open();
 
                 var state = new DeviceState
                 {
@@ -100,7 +99,7 @@ namespace SuperCereal.ViewModels
             {
                 try
                 {
-                    if (state.SerialPort.BytesToRead > 0)
+                    if (state.SerialPort.IsOpen && state.SerialPort.BytesToRead > 0)
                     {
                         while (state.SerialPort.BytesToRead > 0)
                         {
@@ -143,6 +142,12 @@ namespace SuperCereal.ViewModels
 
             PortList = new PortListVM();
             PortDetail = new PortDetailVM();
+        }
+
+        public void Clear()
+        {
+            DataHex.Clear();
+            DataText.Clear();
         }
     }
 }
