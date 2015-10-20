@@ -21,6 +21,8 @@ namespace SuperCereal.ViewModels
         public PortListVM PortList { get; set; }
         public PortDetailVM PortDetail { get; set; }
 
+        public FileDumpVM FileDump { get; set; }
+
         public RelayCommand<string> SendCommand { get; set; }
 
 
@@ -34,6 +36,8 @@ namespace SuperCereal.ViewModels
                     return;
 
                 PortList = new PortListVM(this);
+                FileDump = new FileDumpVM(this);
+
                 SendCommand = new RelayCommand<string>(Send);
 
                 RefreshPorts();
@@ -135,6 +139,28 @@ namespace SuperCereal.ViewModels
             }
         }
 
+        public void Clear()
+        {
+            DataHex.Clear();
+            DataText.Clear();
+        }
+
+        public void SendBytes(byte[] raw)
+        {
+            try
+            {
+                if (PortList.SelectedPort == null)
+                    return;
+
+                var state = _states[PortList.SelectedPort.PortName];
+                state.SerialPort.Write(raw, 0, raw.Length);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.GenerateInfo());
+            }
+        }
+
         private void GenerateTestData()
         {
             DataText = new DataViewerVM(ViewerType.Text);
@@ -142,12 +168,6 @@ namespace SuperCereal.ViewModels
 
             PortList = new PortListVM();
             PortDetail = new PortDetailVM();
-        }
-
-        public void Clear()
-        {
-            DataHex.Clear();
-            DataText.Clear();
         }
     }
 }

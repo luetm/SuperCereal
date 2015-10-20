@@ -99,6 +99,7 @@
     <Compile Include="Model\ViewerType.cs" />
     <Compile Include="Tools\ExceptionExtensions.cs" />
     <Compile Include="ViewModels\DataViewerVM.cs" />
+    <Compile Include="ViewModels\FileDumpVM.cs" />
     <Compile Include="ViewModels\MasterVM.cs" />
     <Compile Include="ViewModels\PortDetailVM.cs" />
     <Compile Include="ViewModels\PortListVM.cs" />
@@ -107,6 +108,9 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\DataViewer.xaml.cs">
       <DependentUpon>DataViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileDump.xaml.cs">
+      <DependentUpon>FileDump.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PortDetail.xaml.cs">
       <DependentUpon>PortDetail.xaml</DependentUpon>
@@ -135,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DataViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FileDump.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,9 +194,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\binary.png" />
-    <Resource Include="Content\icon-clear-formatting.png" />
+    <Resource Include="Content\clear.png" />
     <Resource Include="Content\connect.png" />
     <Resource Include="Content\disconnect.png" />
+    <Resource Include="Content\send.gif" />
     <Content Include="Libs\Common.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

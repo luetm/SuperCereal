@@ -71,17 +71,15 @@
 
             <TextBlock Grid.Row="5"
                        Grid.Column="0"
-                       Grid.ColumnSpan="3"
                        Style="{StaticResource Label}"
-                       Text="Send to port (text, [CR] pseudocodes, new lines are ignored):" />
+                       Text="Send to port (text, [CR] pseudocodes, enter is ignored):" />
             <TextBox x:Name="SendBox"
                      Grid.Row="6"
                      Grid.Column="0"
-                     Grid.ColumnSpan="3"
                      AcceptsReturn="True" />
             <Button Grid.Row="8"
-                    Grid.Column="2"
-                    HorizontalAlignment="Right"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
                     Command="{Binding SendCommand}"
                     CommandParameter="{Binding ElementName=SendBox, Path=Text}">
                 <Grid>
@@ -91,10 +89,18 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Image Source="/SuperCereal;component/Content/binary.png" />
-                    <TextBlock Grid.Column="2" Text="Send to port" />
+                    <Image Source="/SuperCereal;component/Content/send.gif" />
+                    <TextBlock Grid.Column="2" Text="Send" />
                 </Grid>
             </Button>
+
+            <TextBlock Grid.Row="5"
+                       Grid.Column="2"
+                       Style="{StaticResource Label}"
+                       Text="Raw file dump:" />
+            <views:FileDump Grid.Row="6"
+                            Grid.Column="2"
+                            DataContext="{Binding FileDump}" />
         </Grid>
     </Grid>
 </Window>

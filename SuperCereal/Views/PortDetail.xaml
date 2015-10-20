@@ -135,7 +135,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="1" IsEnabled="{Binding Port.IsConnected, Converter={StaticResource NotConverter}}" Command="{Binding ConnectCommand}">
+            <Button Grid.Column="1"
+                    Command="{Binding ConnectCommand}"
+                    IsEnabled="{Binding Port.IsConnected, Converter={StaticResource NotConverter}}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="16" />
@@ -147,7 +149,9 @@
                     <TextBlock Grid.Column="2" Text="Connect" />
                 </Grid>
             </Button>
-            <Button Grid.Column="3" IsEnabled="{Binding Port.IsConnected}" Command="{Binding DisconnectCommand}">
+            <Button Grid.Column="3"
+                    Command="{Binding DisconnectCommand}"
+                    IsEnabled="{Binding Port.IsConnected}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="16" />
@@ -160,7 +164,9 @@
                 </Grid>
             </Button>
 
-            <Button Grid.Column="5" IsEnabled="{Binding Port.IsConnected}" Command="{Binding ClearCommand}">
+            <Button Grid.Column="5"
+                    Command="{Binding ClearCommand}"
+                    IsEnabled="{Binding Port.IsConnected}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="16" />
@@ -168,7 +174,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Image Source="/SuperCereal;component/Content/icon-clear-formatting.png" />
+                    <Image Source="/SuperCereal;component/Content/clear.png" />
                     <TextBlock Grid.Column="2" Text="Clear" />
                 </Grid>
             </Button>
